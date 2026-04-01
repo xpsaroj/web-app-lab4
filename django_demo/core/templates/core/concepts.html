@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Concepts{% endblock %}
+
+{% block content %}
+<div class="grid grid-2">
+    <section class="card">
+        <h1>Database Integration</h1>
+        <h3>Relational (ORM Models)</h3>
+        <p>Structured tables with relations:</p>
+        <ul>
+            <li>Users: {{ relational_items.users }}</li>
+            <li>Articles: {{ relational_items.articles }}</li>
+            <li>Comments: {{ relational_items.comments }}</li>
+        </ul>
+        <p class="meta">Examples: foreign keys from Article to User and Category, Comment to Article.</p>
+    </section>
+
+    <section class="card">
+        <h2>NoSQL-style Data</h2>
+        <p>Event logs use JSON payloads for flexible, semi-structured metadata.</p>
+        <ul class="list-clean">
+            {% for item in nosql_style_items %}
+            <li>
+                <strong>{{ item.event_type }}</strong>
+                <div class="meta">{{ item.created_at }}</div>
+                <pre>{{ item.payload }}</pre>
+            </li>
+            {% empty %}
+            <li>No event logs yet.</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+{% endblock %}

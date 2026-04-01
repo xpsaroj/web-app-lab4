@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<section class="card" style="max-width: 700px; margin: 0 auto;">
+    <h1>Profile</h1>
+    <p>Logged in as <strong>{{ user.username }}</strong></p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-row">
+            <label for="id_bio">Bio</label>
+            {{ form.bio }}
+        </div>
+        <button type="submit">Update Profile</button>
+    </form>
+</section>
+{% endblock %}

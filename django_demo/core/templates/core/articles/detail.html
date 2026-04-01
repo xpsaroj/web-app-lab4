@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<article class="card articles-title" style="margin-bottom: 1rem;">
+    <h1>{{ article.title }}</h1>
+    <div class="meta" style="margin-bottom: 1rem;">
+        {{ article.author.username }} | {{ article.category.name }} | {{ article.created_at }} | Views: {{
+        article.view_count }}
+    </div>
+    <div>{{ article.body|linebreaks }}</div>
+
+    {% if user == article.author %}
+    <div class="flexbox">
+        <a class="btn alt" href="{% url 'core:article_edit' article.slug %}">Edit</a>
+        <form method="post" action="{% url 'core:article_delete' article.slug %}">
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('Delete this article?');">Delete</button>
+        </form>
+    </div>
+    {% endif %}
+</article>
+
+<section class="card comment-section" style="margin-bottom: 1rem;">
+    <h2>Comments</h2>
+    <ul class="list-clean">
+        {% for comment in article.comments.all %}
+        <li>
+            <strong>{{ comment.author.username }}</strong>
+            <div class="meta">{{ comment.created_at }}</div>
+            <p>{{ comment.content }}</p>
+        </li>
+        {% empty %}
+        <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+</section>
+
+{% if user.is_authenticated %}
+<section class="card">
+    <h3>Add Comment</h3>
+    <form method="post" action="{% url 'core:comment_create' article.slug %}">
+        {% csrf_token %}
+        <div class="form-row">
+            {{ comment_form.content }}
+        </div>
+        <button type="submit">Post Comment</button>
+    </form>
+</section>
+{% else %}
+<div class="card">Please <a href="{% url 'core:login' %}">login</a> to comment.</div>
+{% endif %}
+{% endblock %}

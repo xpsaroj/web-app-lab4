@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="grid grid-2">
+    <section class="card">
+        <h1>Web Development Concepts in Django</h1>
+        <p>
+            This app demonstrates request and response handling, form processing,
+            sessions and cookies, routing, middleware, ORM CRUD, and authentication/authorization.
+        </p>
+        <p class="meta">Published articles: {{ article_count }} | Categories: {{ category_count }}</p>
+        <a class="btn" href="{% url 'core:article_list' %}">Browse Articles</a>
+    </section>
+
+    <section class="card">
+        <h2>Recent Articles</h2>
+        <ul class="list-clean">
+            {% for article in recent_articles %}
+            <li>
+                <a href="{% url 'core:article_detail' article.slug %}">{{ article.title }}</a>
+                <div class="meta">{{ article.category.name }} | {{ article.author.username }}</div>
+            </li>
+            {% empty %}
+            <li>No published articles yet.</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+{% endblock %}

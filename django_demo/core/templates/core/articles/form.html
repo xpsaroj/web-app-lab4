@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<section class="card" style="max-width: 760px; margin: 0 auto;">
+    <h1>{{ title }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-row">
+            <label for="id_title">Title</label>
+            {{ form.title }}
+        </div>
+        <div class="form-row">
+            <label for="id_body">Body</label>
+            {{ form.body }}
+        </div>
+        <div class="form-row">
+            <label for="id_category">Category</label>
+            {{ form.category }}
+        </div>
+        <div class="form-row">
+            <label for="id_status">Status</label>
+            {{ form.status }}
+        </div>
+        <button type="submit">Save</button>
+    </form>
+</section>
+{% endblock %}

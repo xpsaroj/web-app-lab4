@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Preferences{% endblock %}
+
+{% block content %}
+<section class="card" style="max-width: 640px; margin: 0 auto;">
+    <h1>List Preferences (Session-based)</h1>
+    <p>These values are stored in your session and used in article listing.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-row">
+            <label for="id_results_per_page">Results per page</label>
+            {{ form.results_per_page }}
+        </div>
+        <div class="form-row">
+            <label for="id_compact_mode">Compact mode</label>
+            {{ form.compact_mode }}
+        </div>
+        <button type="submit">Save Preferences</button>
+    </form>
+</section>
+{% endblock %}

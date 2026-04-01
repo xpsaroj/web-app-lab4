@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<section class="card" style="max-width: 480px; margin: 0 auto;">
+    <h1>Login</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-row">
+            <label for="id_username">Username</label>
+            {{ form.username }}
+        </div>
+        <div class="form-row">
+            <label for="id_password">Password</label>
+            {{ form.password }}
+        </div>
+        <div class="form-row">
+            <label for="id_remember_me">Remember me</label>
+            {{ form.remember_me }}
+        </div>
+        <button type="submit">Sign In</button>
+    </form>
+</section>
+{% endblock %}

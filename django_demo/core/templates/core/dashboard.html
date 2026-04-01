@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="grid grid-2">
+    <section class="card">
+        <h1>Dashboard</h1>
+        <p>Your session visit count for this page: <strong>{{ visit_count }}</strong></p>
+        <div class="meta">A cookie named last_dashboard is also set on each visit.</div>
+        <p>
+            <a class="btn" href="{% url 'core:article_create' %}">Create Article</a>
+            <a class="btn alt" href="{% url 'core:preferences' %}">Session Preferences</a>
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>My Recent Articles</h2>
+        <ul class="list-clean">
+            {% for article in my_articles %}
+            <li>
+                <a href="{% url 'core:article_detail' article.slug %}">{{ article.title }}</a>
+                <div class="meta">{{ article.get_status_display }} | {{ article.created_at }}</div>
+            </li>
+            {% empty %}
+            <li>You have no articles yet.</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+{% endblock %}
